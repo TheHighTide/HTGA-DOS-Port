@@ -3,8 +3,10 @@
 #include <iostream.h>
 #include <conio.h>
 #include <dos.h>
+#include <stdlib.h>
 
 #include "header/errormsg.h" // Responsible for displaying error messages
+#include "header/geomdash.h" // Responsible for GD level data and other variables
 
 int UserCommandInput(char* targetCommand, char* sentCommand){
 	return strcmp(sentCommand, targetCommand) == 0;
@@ -16,7 +18,7 @@ int main(){
 
 	char* applicationVersion = "0.0.1";
 	char* cppVersion = "cpp2";
-	const char* commandList[] = {"help", "version", "beep", "exit"};
+	const char* commandList[] = {"help", "version", "level", "exit"};
 
 	// This is where the code starts
 	clrscr();
@@ -35,10 +37,11 @@ int main(){
 			printf("Current Language Version: %s\n", cppVersion);
 			printf("Application Version: %s\n", applicationVersion);
 		}
-		else if(UserCommandInput("beep", userInput)){
-			sound(750);
-			delay(250);
-			nosound();
+		else if(UserCommandInput("level", userInput)){
+			printf("Please enter the \"Level ID\" of the target level (main only)\n");
+			printf("Level ID: ");
+			scanf(" %[^\n]", userInput);
+			GetLevelDetails(atoi(userInput)); // Get the converted chars level ID
 		}
 		else if(UserCommandInput("exit", userInput)){
 			printf("Thanks for using the HTGA!\n");

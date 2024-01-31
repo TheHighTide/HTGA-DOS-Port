@@ -8,5 +8,11 @@ int DisplayErrorMsg(int errorId){
 		cout << "\n";
 		textcolor(WHITE); // Set the text color to white
 	}
+	if(errorId == 2){
+		textcolor(RED);
+		cprintf("That value is invalid!");
+		cout << "\n";
+		textcolor(WHITE);
+	}
 	return 0;
 }
