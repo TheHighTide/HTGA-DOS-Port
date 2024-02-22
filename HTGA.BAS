@@ -11,14 +11,16 @@ DIM LANGUAGEVERSION AS STRING
 DIM APPLICATIONVERSION AS STRING
 
 LANGUAGEVERSION = "7.1"       ' Version of the QBASIC language
-APPLICATIONVERSION = "0.0.4"  ' Version of the app
+APPLICATIONVERSION = "0.0.5"  ' Version of the app
 
 DIM JOKES(1) AS STRING
 DIM ANSWERS(1) AS STRING
 DIM ALPHABET(1) AS STRING
 DIM GENERATEDLETTERS(0) AS STRING
 DIM JOINEDSTRING AS STRING
+
 ISINAPP = 1 ' This needs to be 1 for the main loop to work!
+ISINLOOP = 0 ' This needs to be 1 for the command loops to work!
 
 PRINT "Loading HTGA..."
 
@@ -53,18 +55,21 @@ PRINT "Type 'help' for a list of commands."
 DO WHILE ISINAPP = 1
     INPUT "HTGA: ", USERINPUT$
     IF UCASE$(USERINPUT$) = "HELP" THEN
-        PRINT "ีออออออออออออออออออออออออออออออออออออออออออออธ"
-        PRINT "ณ             HTGA COMMANDS LIST             ณ"
-        PRINT "ฦออออออออออออออออออออออออออออออออออออออออออออต"
-        PRINT "ณ HELP - Display command list                ณ"
-        PRINT "ณ EXIT - Close the application               ณ"
-        PRINT "ณ QUIT - Close the application               ณ"
-        PRINT "ณ JOKE - Generate a cringe joke              ณ"
-        PRINT "ณ LETTERMESS - Generate a bunch of letters   ณ"
-        PRINT "ณ VERSION - Display app version info         ณ"
-        PRINT "ณ 3DLETTER - Translate 2D letters to 3D      ณ"
-        PRINT "ณ CLEARSCREEN - Clear the console screen     ณ"
-        PRINT "ิออออออออออออออออออออออออออออออออออออออออออออพ"
+        PRINT "ีออออออออออออออออออออออออออออออออออออออออออออออออออออธ"
+        PRINT "ณ                 HTGA COMMANDS LIST                 ณ"
+        PRINT "ฦออออออออออออออออออออออออออออออออออออออออออออออออออออต"
+        PRINT "ณ HELP - Display command list                        ณ"
+        PRINT "ณ EXIT - Close the application                       ณ"
+        PRINT "ณ QUIT - Close the application                       ณ"
+        PRINT "ณ JOKE - Generate a cringe joke                      ณ"
+        PRINT "ณ LETTERMESS - Generate a bunch of letters           ณ"
+        PRINT "ณ VERSION - Display app version info                 ณ"
+        PRINT "ณ 3DLETTER - Translate 2D letters to 3D              ณ"
+        PRINT "ณ CLEARSCREEN - Clear the console screen             ณ"
+        PRINT "ณ TEST - Make sure the console understands you       ณ"
+        PRINT "ณ DICE - Roll multiple different types of dice       ณ"
+        PRINT "ณ RAINBOW - Display a cool rainbow                   ณ"
+        PRINT "ิออออออออออออออออออออออออออออออออออออออออออออออออออออพ"
     ELSEIF UCASE$(USERINPUT$) = "EXIT" OR UCASE$(USERINPUT$) = "QUIT" THEN
         ISINAPP = 0 ' Set ISINAPP to zero in order to exit the program
     ELSEIF UCASE$(USERINPUT$) = "JOKE" THEN
@@ -105,6 +110,54 @@ DO WHILE ISINAPP = 1
     ELSEIF UCASE$(USERINPUT$) = "3DLETTER" THEN
         INPUT "Letter: ", USERINPUT$
         TDLETTERTRANSLATE (USERINPUT$)
+    ELSEIF UCASE$(USERINPUT$) = "TEST" THEN
+        PRINT "Check check 1 2 3"
+    ELSEIF UCASE$(USERINPUT$) = "LOGO" THEN
+        DISPLAYLOGO ' Display the HTGA logo
+    ELSEIF UCASE$(USERINPUT$) = "CHIME" THEN
+        PLAYCHIME ' Play the HTGA theme chime
+        SLEEP 2 ' Delay the execution for 2 seconds
+    ELSEIF UCASE$(USERINPUT$) = "DICE" THEN
+        PRINT "Dice Command"
+        PRINT "Available dice modes are: 4, 6, 8, 12, 20"
+        ISINLOOP = 1
+        NUMBERINPUT = 0
+        DO WHILE ISINLOOP = 1
+            INPUT "Dice Mode: ", USERINPUT$
+            IF UCASE$(USERINPUT$) = "4" THEN
+                NUMBERINPUT = 4 ' Sets the dice for the user to roll as 4
+            ELSEIF UCASE$(USERINPUT$) = "6" THEN
+                NUMBERINPUT = 6 ' Sets the dice for the user to roll as 6
+            ELSEIF UCASE$(USERINPUT$) = "8" THEN
+                NUMBERINPUT = 8 ' Sets the dice for the user to roll as 8
+            ELSEIF UCASE$(USERINPUT$) = "12" THEN
+                NUMBERINPUT = 12 ' Sets the dice for the user to roll as 12
+            ELSEIF UCASE$(USERINPUT$) = "20" THEN
+                NUMBERINPUT = 20 ' Sets the dice for the user to roll as 20
+            ELSE
+                DISPLAYERROR (3)
+            END IF
+
+            IF NOT NUMBERINPUT = 0 THEN
+                ISINLOOP = 0 ' Exit the command loop
+            END IF
+        LOOP
+
+        RANDOMNUMBER = INT(RND * NUMBERINPUT) + 1
+        PRINT "You Rolled: "; RANDOMNUMBER
+    ELSEIF UCASE$(USERINPUT$) = "RAINBOW" THEN
+        COLOR 4, 0 ' Set text color to red
+        PRINT "========================================="
+        COLOR 6, 0 ' Set text color to yellow
+        PRINT "========================================="
+        COLOR 2, 0 ' Set text color to green
+        PRINT "========================================="
+        COLOR 1, 0 ' Set text color to blue
+        PRINT "========================================="
+        COLOR 5, 0 ' Set text color to purple
+        PRINT "========================================="
+        COLOR 7, 0 ' Set text color to white
+        PRINT "The rainbow is missing colors because DOS is limited..."
     ELSE
         DISPLAYERROR (0) ' Display the invalid command message
     END IF
